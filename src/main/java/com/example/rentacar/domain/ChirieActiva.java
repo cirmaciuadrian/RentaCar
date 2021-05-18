@@ -11,17 +11,22 @@ import javax.persistence.*;
 public class ChirieActiva {
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-    private Integer IdMasina;
-    private Integer IdClient;
-    private Date  DataInchiriere;
-    private Integer PerioadaInchiriere;
+    private Integer id;
+    private Date  dataInchiriere;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Client Client;
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    private Client client;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Masina Masina;
+    @OneToOne(cascade = {CascadeType.ALL})
+    private Masina masina;
 
-
+    @Override
+    public String toString() {
+        return "ChirieActiva{" +
+                "id=" + id +
+                ", dataInchiriere=" + dataInchiriere +
+                ", client=" + client +
+                ", masina=" + masina +
+                '}';
+    }
 }

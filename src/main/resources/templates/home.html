@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>HOMEPAGE</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/src/global.css"/>
+    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/src/angajati.js"/>
+    </script>
+    <script src="https://kit.fontawesome.com/8b15b2ad46.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container my-2">
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{'/angajati' } " type="button" class="btn btn-sm btn-primary  m-2">angajati</a>
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{'/clienti' } " type="button" class="btn btn-sm btn-primary  m-2">clienti</a>
+    <a th:href="@{'/masini' } " type="button" class="btn btn-sm btn-primary  m-2">masini</a>
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{'/chirie/active' } " type="button" class="btn btn-sm btn-primary  m-2">chirii active</a>
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{'/chirie/finalizate' } " type="button" class="btn btn-sm btn-primary  m-2">chirii finalizate</a>
+    <form th:action="@{/logout}" method="POST"> <input type="submit"
+                                                       class="btn btn-sm btn-danger" value="Logout"> </form>
+
+</div>
+</body>
+</html>

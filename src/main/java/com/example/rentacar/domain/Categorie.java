@@ -10,12 +10,12 @@ import java.util.List;
 public class Categorie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-    private String Categorie;
+    private Integer id;
+    private String categorie;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "categorie_masina",
             joinColumns =@JoinColumn(name="categorie_id",referencedColumnName = "id"),
             inverseJoinColumns =@JoinColumn(name="masina_id",referencedColumnName="id"))
-    private List<Masina> Masini;
+    private List<Masina> masini;
 }

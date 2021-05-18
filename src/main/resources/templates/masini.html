@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Masini</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="/src/global.css"/>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/src/angajati.js"/>
+    </script>
+    <script src="https://kit.fontawesome.com/8b15b2ad46.js" crossorigin="anonymous"></script>
+
+    <!--    <script type="text/javascript" th:src="@{/js/angajati.js}" />-->
+    <!--    <style>-->
+    <!--        tr:hover {background-color:#f5f5f5!important;}-->
+    <!--    </style>-->
+</head>
+<body>
+<div class="container my-2 ">
+    <h1>Lista Masinilor</h1>
+    <button sec:authorize="hasRole('ADMIN')" type="button" class="btn btn-sm btn-primary  m-2 modal-adaugare" data-toggle="modal"
+            data-target="#modalAdaugare">
+        Adauga o masina
+    </button>
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{'/angajati' } " type="button" class="btn btn-sm btn-primary  m-2">angajati</a>
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{'/clienti' } " type="button" class="btn btn-sm btn-primary  m-2">clienti</a>
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{'/chirie/active' } " type="button" class="btn btn-sm btn-primary  m-2">chirii active</a>
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{'/chirie/finalizate' } " type="button" class="btn btn-sm btn-primary  m-2">chirii finalizate</a>
+    <a th:href="@{'/home' } " type="button" class="btn btn-sm btn-primary  m-2">
+        Home <i class="fas fa-home pl-1"></i>
+    </a> <form th:action="@{/logout}" method="POST"> <input type="submit"
+                                                       class="btn btn-sm btn-danger" value="Logout"> </form>
+    <form th:action="@{/masini}" method="get" id="filtrareForm">
+        <!--        <input type="hidden" th:field="*{categorieSelectata}" name="categorieSelectata" >-->
+        <input class="input-categorie-id" name="categorieSelectata" type="hidden" th:value="${categorieSelectata}"/>
+        <input class="input-status-masini" name="status" type="hidden" th:value="${status}"/>
+    </form>
+    <div class="row">
+        <div class="col-sm-1">
+            <label class="pt-2">Categorie</label>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group blu-margin">
+                <select class="form-control select-categorie-masini" name="categorie" th:field="${categorii}"
+                        id="dropOperator">
+                    <option value="0">Alege</option>
+                    <option th:each="categorie : ${categorii}" th:value="${categorie.id}"
+                            th:text="${categorie.categorie}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-sm btn-outline-primary btn-masini-libere">Masini libere <i
+                    class="fas fa-play pl-1 pt-2"></i></button>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-sm btn-outline-secondary btn-masini-inchiriate">Masini Inchiriate <i
+                    class="fas fa-hand-paper pl-1 pt-2"></i></button>
+        </div>
+        <!--            <div class="col-sm-2">-->
+        <!--                <button class="btn btn-sm btn-outline-info pt-2" type="submit">Filtreaza <i class="fas fa-filter"></i></button>-->
+        <!--            </div>-->
+    </div>
+
+    <table class="styled-table m-auto table datatable">
+        <thead class="">
+        <tr>
+            <th>Firma</th>
+            <th>Model</th>
+            <th>An Productie</th>
+            <th>Capcitate cilindrica</th>
+            <th>Putere</th>
+            <th>Culoare</th>
+            <th>Numar Inmatriculare</th>
+            <th>Pret</th>
+            <th>Status</th>
+            <th sec:authorize="hasRole('ADMIN')" >Actions</th>
+        </tr>
+        </thead>
+        <tr th:each="masina, stat : ${masini}"
+            th:class=" ${stat.odd}? '':'active-row ' "
+        >
+            <td th:text="${masina.firma.numeFirma}">1</td>
+            <td th:text="${masina.model}">nume 1</td>
+            <td th:text="${masina.anProductie}">prenume</td>
+            <td th:text="${masina.capacitateCilindrica}">telefon</td>
+            <td th:text="${masina.putere}">email</td>
+            <td th:text="${masina.culoare}">cnp</td>
+            <td th:text="${masina.numarInmatriculare}">nume 1</td>
+            <td th:text="${masina.pret}">nume 1</td>
+            <td th:text="${masina.esteInchiriata}?'Inchiriata':'Libera'">nume 1</td>
+            <td sec:authorize="hasRole('ADMIN')">
+                <div th:unless="${masina.esteInchiriata}" class="d-inline-block">
+                    <button th:data-id="${masina.id}" th:data-nrinamat="${masina.numarInmatriculare}" data-toggle="modal" data-target="#modalInchiriazaMasina"
+                            class="btn btn-sm btn-primary btn-inchiriaza-masina"><i
+                            class="fas fa-car"></i></button>
+                </div>
+                <div class="pl-1 d-inline-block  ">
+                    <button th:data-id="${masina.id}" class="btn btn-sm btn-secondary btn-edit-masina"
+                            data-toggle="modal"
+                            data-target="#modalAdaugare"><i class="fas fa-edit"></i></button>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="modal fade modal-form-masina" id="modalAdaugare" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content continut-modal-adaugare">
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-inchiriaza-masina" id="modalInchiriazaMasina" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <input type="hidden"  class="hidden-id-masina-pentru-icnhiriat">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="m-2">
+                    <label>Alege un client</label>
+                    <select id="inchiriazaMasina" class="form-control select-client-inchiriaza-masina" th:name="${clienti}" th:field="*{clienti}">
+                        <option value="0">Alege</option>
+                        <option th:each="client : ${clienti}" th:value="${client.id}"
+                                th:text="${client.nume} +' '+  ${client.prenume} +'   '+ ${client.cnp}"></option>
+                    </select>
+                    <label class="mesaj-eroare text-danger"></label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                <div  class="btn btn-sm btn-primary btn-inchiriaza-confirmare">Inchiriaza</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $('.datatable').DataTable();
+    });
+</script>

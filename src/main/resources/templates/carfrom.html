@@ -1,0 +1,91 @@
+<form class="form-adaugare"th:object="${masina}" th:action="${isUpdate}? '/'+${id}:'/masini/add' " method="post">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Masini</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+    <!--        <input type="hidden" th:field="*{masina.id}"/>-->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Firma</label>
+                    <select id="firma" class="form-control " th:name="${firma}" th:field="*{firma}">
+                        <option value="0">Alege</option>
+                        <option th:each="firma : ${firme}" th:value="${firma.id}"
+                                th:text="${firma.numeFirma}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Model</label>
+                    <input type="text" class="form-control" placeholder="Model"  th:field="*{model}"/>
+                    <label th:if="${#fields.hasErrors('model')}" class="text-danger" th:errors="*{model}">Nume
+                        Error</label>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>An productie</label>
+                    <input type="number" class="form-control" placeholder="An productie" th:field="*{anProductie}"/>
+                    <label th:if="${#fields.hasErrors('anProductie')}" class="text-danger" th:errors="*{anProductie}">Nume
+                        Error</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Capacitate cilindrica</label>
+                    <input type="number" class="form-control" placeholder="Capcacitate cilindrica" th:field="*{capacitateCilindrica}"/>
+                    <label th:if="${#fields.hasErrors('capacitateCilindrica')}" class="text-danger" th:errors="*{capacitateCilindrica}">Nume
+                        Error</label>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Putere</label>
+                    <input type="number" class="form-control" placeholder="putere" th:field="*{putere}"/>
+                    <label th:if="${#fields.hasErrors('putere')}" class="text-danger" th:errors="*{putere}">Nume
+                        Error</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Culoare</label>
+                    <input type="text" class="form-control" placeholder="culoare" th:field="*{culoare}"/>
+                    <label th:if="${#fields.hasErrors('culoare')}" class="text-danger" th:errors="*{culoare}">Nume
+                        Error</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Numar de inmatriculare</label>
+                    <input type="text" class="form-control" placeholder="Numar de inamtriculare" th:field="*{numarInmatriculare}"/>
+                    <label th:if="${#fields.hasErrors('numarInmatriculare')}" class="text-danger" th:errors="*{numarInmatriculare}">Nume
+                        Error</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Pret</label>
+                    <input type="number" class="form-control" placeholder="Pret" th:field="*{pret}"/>
+                    <label th:if="${#fields.hasErrors('pret')}" class="text-danger" th:errors="*{pret}">Nume
+                        Error</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" th:class="${isUpdate}? 'btn btn-sm btn-primary btn-send-form-update-masini':'btn btn-sm btn-primary btn-send-form-add-masini' " class="btn btn-sm btn-primary btn-send-form-add-masini">Submit</button>
+    </div>
+</form>

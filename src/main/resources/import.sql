@@ -18,6 +18,9 @@ INSERT INTO masina (an_productie, capacitate_cilindrica, culoare,  firma_id, mod
 INSERT INTO masina (an_productie, capacitate_cilindrica, culoare,  firma_id, model, numar_inmatriculare, pret, putere, este_inchiriata ) VALUES ('2007', '1900', 'Negru', '1',  'Bravo',  'CT 07 RNT',  '120',  '125', false);
 INSERT INTO masina (an_productie, capacitate_cilindrica, culoare,  firma_id, model, numar_inmatriculare, pret, putere, este_inchiriata ) VALUES ('2007', '1900', 'Negru', '1',  'Bravo',  'CT 08 RNT',  '120',  '125', false);
 
+insert into angajat(cnp, nume, prenume, varsta) values ('1980305134126', 'Adrian', 'Cirmaciu', '26')
+insert into angajat(cnp, nume, prenume, varsta) values ('1421305134126', 'Marian', 'Vasile', '26')
+
 insert into categorie_masina(masina_id, categorie_id) values('8', '5')
 insert into categorie_masina(masina_id, categorie_id) values('8', '1')
 insert into categorie_masina(masina_id, categorie_id) values('7', '5')

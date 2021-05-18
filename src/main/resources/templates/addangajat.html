@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Info</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<body>
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 ">
+
+            <form th:object="${angajat}" th:action="@{/angajati/add}" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Adauga un angajat</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label>Nume</label>
+                        <input type="text" class="form-control" placeholder="Nume angajat" th:field="*{nume}"/>
+                        <label th:if="${#fields.hasErrors('nume')}" class="text-danger" th:errors="*{nume}">Nume Error</label>
+                    </div>
+                    <div class="form-group">
+                        <label>Prenume</label>
+                        <input type="text" class="form-control" placeholder="Prenume angajat" th:field="*{prenume}"/>
+                        <label th:if="${#fields.hasErrors('prenume')}" class="text-danger" th:errors="*{prenume}">Nume Error</label>
+                    </div>
+                    <div class="form-group">
+                        <label>CNP</label>
+                        <input type="text" class="form-control" placeholder="CNP" th:field="*{cnp}"/>
+                        <label th:if="${#fields.hasErrors('cnp')}" class="text-danger" th:errors="*{cnp}">Nume Error</label>
+                    </div>
+                    <div class="form-group">
+                        <label>Varsta</label>
+                        <input type="text" class="form-control" placeholder="Varsta" th:field="*{varsta}"/>
+                        <label th:if="${#fields.hasErrors('varsta')}" class="text-danger" th:errors="*{varsta}">Name Error</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
